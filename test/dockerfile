@@ -1,0 +1,18 @@
+FROM node:14.15.4
+RUN apt update \
+    && apt-get install -y default-jre \
+    && curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /chrome.deb \
+    && apt-get update && dpkg -i /chrome.deb \
+    || apt-get install --no-install-recommends -yf \
+    && rm /chrome.deb \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /test
+
+COPY ./test/package.json .
+RUN npm i
+
+COPY ./test/env.ts ./test/protractor.ts ./test/tsconfig.json ./
+COPY ./test/src/ ./src/
+CMD npm run test

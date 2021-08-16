@@ -1,0 +1,26 @@
+<h1>{{ pageName }}</h1>
+
+<div *ngIf="error$ | async as error" style="color: red">{{ error }}</div>
+
+<div>
+  <select class="form-control" (change)="typeSelected($event.target)">
+    <option [value]="0">- Display All -</option>
+    <option *ngFor="let appType of appTypes$ | async" [value]="appType.id">- {{ appType.name}} -</option>
+  </select>
+</div>
+
+<app-launcher
+  *ngFor="let launcher of filteredLaunchers$ | async"
+  [launcherValidator]="launcher"
+  [obj]="launcher"
+  (clicked)="launched($event)"
+>
+</app-launcher>
+
+<app-launcher
+  *ngFor="let launcher of filteredLaunchers$ | async"
+  [launcherValidator]="launcher"
+  [obj]="launcher"
+  (clicked)="launched($event)"
+>
+</app-launcher>

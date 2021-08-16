@@ -1,0 +1,6 @@
+**/dist
+**/node_modules
+**/.editorconfig
+**/.gitignore
+**/dockerfile
+**/docker-compose.yml

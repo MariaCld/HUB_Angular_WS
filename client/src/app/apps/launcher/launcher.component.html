@@ -1,0 +1,10 @@
+<div class="launcher"
+    [appWebOrDesktop]="obj"
+    (click)="launch()" 
+    [ngClass]="{ 'launched': (launchCount$ | async)! > 0 }"
+>
+    <p>{{ obj?.name | nameit: obj?.typeName }}</p>
+    <p *ngIf="(launchCount$ | async) === 0">Never launched!</p>
+    <p [hidden]="(launchCount$ | async) === 0">Launch count: {{(launchCount$ | async)}}</p>
+    <!-- <p>Async launch Count: {{ launchCount$ | async}}</p> -->
+</div>

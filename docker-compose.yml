@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+
+    client:
+        container_name: 'client'
+        build:
+            context: .
+            dockerfile: ./client/dockerfile
+            target: run
+        depends_on:
+            - server
+        ports:
+            - 4200:80
+        restart: always
+        networks:
+            - client
+
+    server:
+        container_name: 'server'
+        build:
+            context: .
+            dockerfile: ./server/dockerfile
+            target: server
+        volumes:
+            - ./server/mocks/db.json:/hub/mocks/db.json
+        restart: always
+        networks:
+            - client
+networks:
+    client:
+         driver: bridge
